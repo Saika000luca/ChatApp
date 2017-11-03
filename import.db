@@ -1,0 +1,9 @@
+create table comments(
+  id integer primary key,
+  userId integer,
+  chatroomId integer,
+  chatroomName text,
+  userName text,
+  body text,
+  created_at
+)

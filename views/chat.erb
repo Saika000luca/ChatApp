@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>ちゃっとさいと</title>
+  </head>
+  <body style="width:60%;margin:0 auto;text-align:center;">
+    <div align=right><a href="/chatroom_site">戻る</a></div>
+    <h1><%= @title %></h1>
+    <form method="post" action="/chat/<%=@num%>/<%=@name%>">
+      <input id="client_name" type="text" name="userName" placeholder="名無し"/><br />
+      <textarea name="body" cols="30" rows="5"></textarea><br />
+      <input id="comment_push" type="submit" value="コメントする" />
+    </form>
+
+    <ul style="list-style:none;">
+      <% @id.each do |comment| %>
+        <li data-id="<%= comment.id%>">
+          <div style="position:absolute; left:200px"><%= comment.userName %> > </div>
+          <%= comment.body %>
+        </li>
+      <% end %>
+    </ul>
+
+
+<script src="/jquery-3.2.1.min.js"></script>
+
+<script type="application/javascript">
+$("#comment_push").click(function(){
+  if ($("#client_name").val() == 0) { $("#client_name").val("名無し")};
+})
+</script>
+
+
+
+  </body>
+</html>

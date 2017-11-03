@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>ユーザー認証</title>
+  </head>
+  <body style="width:60%;margin:0 auto;text-align:center;">
+    <div Align="right"><a href="/">トップページへ</a>
+    <div Align="right"><a href="logout">ログアウト</a>
+    <form method="post" action="user_auth">
+      <input type="text" name="userName" placeholder="ユーザー名" /><br />
+      <input type="password" name="password" placeholder="パスワード" /><br />
+      <input type="submit" value="ログイン" />
+    </form>
+    <form method="post" action="new_auth">
+      <input type="text" name="userName" placeholder="ユーザー名" /><br />
+      <input type="password" name="password" placeholder="パスワード" /><br />
+      <input type="submit" value="新規作成" />
+    </form>
+
+  </body>
+</html>

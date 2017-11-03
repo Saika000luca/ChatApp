@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+  <html lang="ja">
+    <head>
+      <meta charset="utf-8">
+      <title>チャットルーム作成</title>
+    </head>
+    <body style="width:60%;margin:0 auto;text-align:center;">
+      <div align=right><a href="/">戻る</a></div>
+      <h1>ここで新しいチャットルームを作成して</h1>
+      <form method="post" action="Make_chatroom">
+        <p>チャットルーム名を入力 ↓ </p>
+        <!--<input class="chatroomId" type="text" name="chatroomId" placeholder="チャットルームID">-->
+        <input class="chatroomName" type="text" name="chatroomName" placeholder="チャットルーム名">
+        <input class="chat_push" type="submit" value=送信!>
+      </form>
+
+        <h2>以下は現在存在するチャットルームの一覧</h2>
+        <table border>
+          <tr>
+            <th>チャットルーム名</th>
+            <th>チャットルームID</th>
+          </tr>
+          <tr>
+         <% @chatroom.each do |cr_list| %>
+            <td><%= cr_list.chatroomName %></td>
+            <td><a href="/id/<%= cr_list.chatroomId %>/<%= cr_list.chatroomName %>"><%= cr_list.chatroomId %></a></td>
+          </tr>
+        <% end %>
+        </table>
+
+        
+
+    <script src="./jquery-3.2.1.min.js"></script>
+<!--
+<script>
+$('.chat_push').click(function() {
+   #@chatroom.each do |cr_check| 
+      if ( $("#chatroomName").val() ==  #cr_check.chatroomName ) {
+        windows.alert("すでに存在しています");
+        break;
+      };
+   #end 
+   
+})
+</script>
+-->
+
+    </body>
+  </html>
