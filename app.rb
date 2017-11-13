@@ -146,12 +146,13 @@ post '/new_auth' do
 
   if Auth.where("userName = ?", params[:userName]).count == 1
     redirect '/user_already_exist'
-  end
+  else
   Auth.create({:userName => params[:userName],
                :password => params[:password]})
 
   #redirect '/user_login'
   "新規登録しました"
+  end
   
 
 end
