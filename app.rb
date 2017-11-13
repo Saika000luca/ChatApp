@@ -6,34 +6,6 @@ require 'sinatra-websocket'
 
 
 
-#Bundler.require
-
-#sum = 
-#@erb_sum = 0
-#chatRoom = []
-
-=begin
-set :server, 'thin'
-set :sockets, []
-
-get '/websocket' do
-  if !request.websocket?
-                  
-    erb :index
-  else
-    request.websocket do |ws|
-      ws.onopen do
-        settings.sockets << ws
-      end
-      ws.onmessage do |msg|
-        settings.sockets.each do |s|
-          s.send(msg)
-        end
-      end
-    end
-  end
-end
-=end
 
 enable :sessions
 
@@ -64,16 +36,8 @@ post '/new'do
   redirect '/'
 end
 
-#post '/new_chatroom' do
-#  Comment.create({:userName => params[:userName],
-#                  :body => params[:body]})
-#end
-
-
 
 get '/chatroom_site' do
-  #count += 1
-  #@chatroom = Comment.order("id desc").all
   @chatroom = Comment.select("chatroomId, chatroomName").distinct.order("created_at desc")
   erb :MakeChatroom
 end
@@ -95,12 +59,8 @@ end
 
 
 get '/logout' do
-  #p 1
-  #@userName = session[:userName]
   session[:userName] = nil
-  #@session = false
   session[:authenticated] = false
-  #Auth.select("authenticated") = false
   redirect '/chat_logout'
 end
 
@@ -147,11 +107,8 @@ get '/chat_logined' do
 end
 
 get '/id/:num/:name' do
-  #@title = Commet
-  #@id = Comment.find_by(chatroomId: params[:num])
   @id = Comment.where(chatroomId: params[:num]).order("id desc").all
   @title = params[:name]
-  #@id = @id.order("id desc").all
   @name = @title
   @num = params[:num]
   erb :chat
@@ -167,8 +124,6 @@ post '/chat/:num/:name' do
 end
 
 before do
-  #p session[:authenticatd]
-  #p request.path
   unless session[:authenticated]
     if request.path != "/login" && request.path != "/user_auth" && 
         request.path != "/new_auth" && request.path != "/user_already_exist" && request.path != "/chat_logout"
