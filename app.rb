@@ -68,6 +68,10 @@ get '/chat_logout' do
   "ログアウトしました。"
 end
 
+
+#データベースからuserNameとpasswordが一致するものをauthに格納
+#auth.countが0なら一致しなかったこととなる。
+#その後sessionを用いて認証されているか判断する
 post '/user_auth' do
 
     auth = Auth.where("userName = ? AND password = ?",
@@ -83,6 +87,8 @@ post '/user_auth' do
 end
 
 
+#ユーザーが既に存在しているかだけの条件で判断している
+#今後新規登録方法を変えた方が良いだろう
 post '/new_auth' do
 
   if Auth.where("userName = ?", params[:userName]).count == 1
@@ -123,6 +129,9 @@ post '/chat/:num/:name' do
 
 end
 
+
+#sessionを用いてユーザーが認証されているか確認
+#requeset.pathの場所なら/loginにredirectすることでユーザー認証を強制させている
 before do
   unless session[:authenticated]
     if request.path != "/login" && request.path != "/user_auth" && 
@@ -131,6 +140,7 @@ before do
     end
   end
 end
+
 
 
 after do
