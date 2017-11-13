@@ -114,35 +114,16 @@ post '/user_auth' do
                params[:userName], params[:password]) 
 
     if auth.count == 0
-      redirect '/login_fault'
-    end
-
-    #if Auth.select("authenticated") then
-    #  "すでにログインしています"
-    #else
+      "ログインできませんでした"
+    else
       session[:userName] = params[:userName]
       session[:authenticated] = true
-      #Auth.select("authenticated") = true
-      redirect '/chat_login' #ログインしました。
-  #if session[:userName] != params[:userName] 
-      #session[:userName] = params[:userName]
-      #session[:authenticated] = true
-    #@session = true
-    #|@userName = params[:userName]
-    #p session[:authenticated]
-    #p 1
-      #redirect '/chat_login' #ログインしました。
-    #p 2
-    #redirect '/chat_logined'  #すでにログインしています。
+      "ログインしました"
+    end
 end
 
-get '/login_fault' do
-  "ログインできませんでした"
-end
 
 post '/new_auth' do
-  #p params[:userName]
-  #p params[:password]
 
   if Auth.where("userName = ?", params[:userName]).count == 1
     redirect '/user_already_exist'
@@ -150,7 +131,6 @@ post '/new_auth' do
   Auth.create({:userName => params[:userName],
                :password => params[:password]})
 
-  #redirect '/user_login'
   "新規登録しました"
   end
   
@@ -161,13 +141,6 @@ get '/user_already_exist' do
   "すでにユーザーが存在します"
 end
 
-get '/user_login' do
-  "新規登録"
-end
-
-get '/chat_login' do
-  "ログインしました。"
-end
 
 get '/chat_logined' do
   "すでにログインしています。"
@@ -198,7 +171,7 @@ before do
   #p request.path
   unless session[:authenticated]
     if request.path != "/login" && request.path != "/user_auth" && 
-        request.path != "/new_auth" && request.path != "/user_already_exist" &&        request.path != "/chat_logout"
+        request.path != "/new_auth" && request.path != "/user_already_exist" && request.path != "/chat_logout"
        redirect '/login'
     end
   end
