@@ -30,8 +30,8 @@ end
 
 post '/new'do 
   Comment.create({:userName => params[:userName],
-                  :chatroomId => nil,
-                  :chatroomName => "トップアプリ",
+                  :chatroomId => 0,
+                  :chatroomName => "common_room",
                   :body => params[:body]})
   redirect '/'
 end
@@ -43,10 +43,8 @@ get '/chatroom_site' do
 end
 
 post '/Make_chatroom' do
-  #sum = 0
   sum = Comment.select("chatroomId").maximum(:chatroomId)
   sum += 1
-  #@erb_sum = sum
   Comment.create({:chatroomId => sum,
                   :chatroomName => params[:chatroomName]})
   redirect '/chatroom_site'
@@ -117,6 +115,7 @@ get '/id/:num/:name' do
   @title = params[:name]
   @name = @title
   @num = params[:num]
+  @userName = session[:userName]
   erb :chat
 end
 

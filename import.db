@@ -6,4 +6,4 @@ create table comments(
   userName text,
   body text,
   created_at
-)
+);

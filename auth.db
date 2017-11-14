@@ -2,4 +2,4 @@ create table auths(
   userName text primary key,
   password text,
   authenticated boolean default 0
-)
+);
